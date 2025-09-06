@@ -1,4 +1,4 @@
--- ⚡ Teleport Brutal CFrame No Delay + Auto Teleport + UI Modern (tanpa flag)
+-- ⚡ Teleport Brutal CFrame + Delay 0.5 Detik per Checkpoint + Auto Teleport + UI Modern (tanpa flag)
 
 local Players = game:GetService("Players")
 local StarterGui = game:GetService("StarterGui")
@@ -7,8 +7,9 @@ local player = Players.LocalPlayer
 
 -- Daftar titik teleport
 local teleportPoints = {
-    Vector3.new(16.50, 55.17, -1082.82),
-    Vector3.new(809.07, 2142.73, 3909.55)
+    Vector3.new(437.01, 1720.53, 3431.35),  -- Titik 1
+    Vector3.new(626.02, 1799.41, 3433.20),  -- Titik 2
+    Vector3.new(805.25, 2142.93, 3910.33)   -- Titik 3
 }
 
 local teleportEnabled = false
@@ -29,20 +30,22 @@ local function teleportToPoints()
                 Text = "Checkpoint "..i.." tercapai! Server ID: "..currentServer,
                 Duration = 3
             })
+            -- Delay 0.5 detik tiap checkpoint
+            task.wait(0.5)
             -- Jika titik terakhir, teleport ke server baru
             if i == #teleportPoints then
-                wait(1)
-                TeleportService:Teleport(game.PlaceId, player) -- teleport ke server baru
+                task.wait(0.5)
+                TeleportService:Teleport(game.PlaceId, player)
             end
         end
-        wait()
+        task.wait()
     end
 end
 
 -- Auto teleport saat respawn
 player.CharacterAdded:Connect(function()
     if teleportEnabled then
-        spawn(teleportToPoints)
+        task.spawn(teleportToPoints)
     end
 end)
 
@@ -72,7 +75,7 @@ toggleButton.MouseButton1Click:Connect(function()
     toggleButton.Text = teleportEnabled and "Teleport ON" or "Teleport OFF"
     toggleButton.BackgroundColor3 = teleportEnabled and Color3.fromRGB(0,255,0) or Color3.fromRGB(255,0,0)
     if teleportEnabled then
-        spawn(teleportToPoints)
+        task.spawn(teleportToPoints)
         StarterGui:SetCore("SendNotification", {
             Title = "Auto Summit",
             Text = "Teleport aktif! Server ID: "..currentServer,
