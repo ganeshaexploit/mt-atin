@@ -7,9 +7,8 @@ local player = Players.LocalPlayer
 
 -- Daftar titik teleport
 local teleportPoints = {
-    Vector3.new(437.01, 1720.53, 3431.35),  -- Titik 1
-    Vector3.new(626.02, 1799.41, 3433.20),  -- Titik 2
-    Vector3.new(805.25, 2142.93, 3910.33)   -- Titik 3
+    Vector3.new(626.02, 1799.41, 3433.20),  -- Titik 1
+    Vector3.new(805.25, 2142.93, 3910.33)   -- Titik 2
 }
 
 local teleportEnabled = false
